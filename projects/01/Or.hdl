@@ -1,0 +1,23 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Or.hdl
+
+ /**
+ * Or gate:
+ * out = 1 if (a == 1 or b == 1)
+ *       0 otherwise
+ */
+
+CHIP Or {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    Nand (a=a, b=b, out=nandout);
+    Nand (a=a, b=nandout, out=anand);
+    Nand (a=nandout, b=b, out=bnand);
+    Nand (a=anand, b=bnand, out=cnand);
+    Nand (a=cnand, b=cnand, out=dnand);
+    Nand (a=nandout, b=dnand, out=out);
+}
